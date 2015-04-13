@@ -1,0 +1,56 @@
+package com.xinux.test.service;
+
+import java.util.List;
+
+import com.xinux.test.model.User;
+
+public interface UserService {
+
+    /**
+     * 根据用户id查找用户
+     * 
+     * @param id
+     * @return User
+     */
+    public User getUserById(int id);
+
+    /**
+     * 根据用户名userName查找用户
+     * 
+     * @param userName
+     * @return
+     */
+    public User getuserByUserName(String userName);
+
+    /**
+     * 查找所有用户
+     * 
+     * @return List<User>
+     */
+    public List<User> getAllUsers();
+
+    /**
+     * 创建一个新用户
+     * 
+     * @param user
+     * @return
+     */
+    public void createUser(User user);
+
+    /**
+     * 根据用户id删除一个用户
+     * 
+     * @param id
+     * @return
+     */
+    public void deleteUserById(int id);
+
+    /**
+     * 更新一个用户的信息
+     * 
+     * @param user
+     * @return
+     */
+    public boolean updateUserInfo(User user, int id);
+
+}

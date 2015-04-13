@@ -1,0 +1,38 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>用户登陆页</title>
+</head>
+<body>
+	<!-- javaScript 函数 validateLogin(),用来验证用户名和密码是否为空 -->
+	<script type="text/javaScript">
+		function validateLogin() {
+			var sUserName = document.frmLogin.userName.value;
+			var sPassword = document.frmLogin.password.value;
+			if (sUserName == "") {
+				alert("请输入用户名！");
+				return false;
+			}
+			if (sPassword == "") {
+				alert("请输入密码！");
+				return false;
+			}
+		}
+	</script>
+	<!-- Form 用来提取用户填入并提交的信息-->
+	<form method="post" name="frmL ogin" action="LoginController">
+		<h1 align="center">用户登录</h1>
+		<br>
+		<div align="center">
+			用户名： <input type="text" name="userName" value="Your name"
+				onfocus="if(this.value=='Your name')this.value='';"><br>密码：
+			<input type="password" name="password" value="Your password"
+				onfocus="if(this.value=='Your password')this.value='';"><br>
+			<input type="submit" name="Submit" value="提交"
+				onClick="validateLogin();"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			<input type="reset" name="Reset" value="重置"><br>
+		</div>
+	</form>
+</body>
+</html>
