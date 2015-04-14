@@ -13,7 +13,9 @@
 		<!-- confirm password:<input type="password" name="confirmpassword"/><br/> -->
 		<!-- Age:<input type="text" name="age"/><br/> -->
 		<!-- emphireDate:<input type="text" name="empHireDate"/><br/> -->
-		<input type="submit" value="submit"/> <input type="reset" value="cancel"/>
+		<input type="submit" value="submit"/>&nbsp;
+		<input type="reset" value="cancel"/>&nbsp;
+		<input type="button" value="register" onclick="window.location.href='register'">
 	</form>
 </body>
 </html>

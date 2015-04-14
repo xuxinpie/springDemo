@@ -34,23 +34,31 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void createUser(User user) {
-        userDao.insertUser(user);
+    public boolean createUser(User user) {
+        int effectedRows = userDao.insertUser(user);
+        int key = user.getId();
+        System.out.println("effect Rows: " + effectedRows);
+        System.out.println("Insert UserId: " + key);
+        return key > 0 ? true : false;
     }
 
     @Override
-    public void deleteUserById(int id) {
-        /*int index = userDao.deleteUserById(id);
-        if (index > 0) {
+    public boolean deleteUserById(int id) {
+        int effectedRows = userDao.deleteUserById(id);
+        if (effectedRows > 0) {
             return true;
+        } else {
+            return false;
         }
-        return false;*/
-        userDao.deleteUserById(id);
     }
 
     @Override
-    public boolean updateUserInfo(User user, int id) {
-        return false;
+    public boolean updateUserInfo(User user) {
+        int effectedRows = userDao.updateUserInfo(user);
+        if (effectedRows > 0) {
+            return true;
+        } else {
+            return false;
+        }
     }
-
 }

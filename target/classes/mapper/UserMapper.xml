@@ -29,6 +29,18 @@
 		delete from user_t
 		where id = #{id}
 	</delete>
+	<!-- 对于数据库表的主键不是自增的类型 -->
+	<!-- <insert id="insertUser" parameterType="User">
+		<![CDATA[
+		insert into user_t (user_name, password,
+		age)
+		values (#{userName}, #{password}, #{age})
+		]]>
+		<selectKey resultType="int" keyProperty="id">
+			SELECT @@IDENTITY
+			AS id
+		</selectKey>
+	</insert> -->
 	<insert id="insertUser" parameterType="User" useGeneratedKeys="true" keyProperty="id">
 		insert into user_t (user_name, password,
 		age)

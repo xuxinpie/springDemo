@@ -8,10 +8,11 @@ public interface UserDao {
 
     /**
      * 插入一条用户数据
-     * 
+     * insert不在返回主键，只返回响应行数，和ibatis不同
      * @param user
+     * @return  插入数据的用户id
      */
-    public void insertUser(User user);
+    public int insertUser(User user);
 
     /**
      * 根据用户Id查找对应用户，一个用户唯一对应一个UserId
@@ -40,15 +41,16 @@ public interface UserDao {
      * 更新用户
      * 
      * @param user
+     * @return 更新的行数
      */
-    public void updateUserInfo(User user);
+    public int updateUserInfo(User user);
 
     /**
      * 根据用户Id删除一个用户
      * 
      * @param id
-     * @return 
+     * @return 删除的行数
      */
-    public void deleteUserById(int id);
+    public int deleteUserById(int id);
 
 }

@@ -35,7 +35,7 @@ public interface UserService {
      * @param user
      * @return
      */
-    public void createUser(User user);
+    public boolean createUser(User user);
 
     /**
      * 根据用户id删除一个用户
@@ -43,7 +43,7 @@ public interface UserService {
      * @param id
      * @return
      */
-    public void deleteUserById(int id);
+    public boolean deleteUserById(int id);
 
     /**
      * 更新一个用户的信息
@@ -51,6 +51,6 @@ public interface UserService {
      * @param user
      * @return
      */
-    public boolean updateUserInfo(User user, int id);
+    public boolean updateUserInfo(User user);
 
 }

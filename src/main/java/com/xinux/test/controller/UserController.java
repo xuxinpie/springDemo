@@ -64,27 +64,50 @@ public class UserController {
     }
 
     @RequestMapping(value = "/delete")
-    public String deleteUser(HttpServletRequest request) {
+    public ModelAndView deleteUser(HttpServletRequest request, Model model) {
         int userId = Integer.parseInt(request.getParameter("id"));
+        boolean result = userService.deleteUserById(userId);
+        if (result) {
+            return new ModelAndView("redirect:list");
+        } else {
+            model.addAttribute("message", "删除用户失败!");
+            return new ModelAndView("error");
+        }
 
-        userService.deleteUserById(userId);
-        return "deleteResult";
     }
 
+    //也可以利用@RequestParam来实现参数绑定
+    /*    @RequestMapping(value = "/delete")
+        public ModelAndView deleteUser(#RequestParam("id") String id, Model model) {
+            int userId = Integer.parseInt(id);
+            boolean result = userService.deleteUserById(userId);
+            if (result) {
+                return new ModelAndView("redirect:list");
+            } else {
+                model.addAttribute("message", "删除用户失败!");
+                return new ModelAndView("error");
+            }
+            
+        }
+    */
     @RequestMapping(value = "/register")
     public String register() {
         return "register";
     }
 
     @RequestMapping(value = "/add")
-    public String add(UserRegisterInfo usertemp) {
+    public String add(UserRegisterInfo usertemp, Model model) {
         System.out.println(usertemp);
         User user = new User();
         user.setUserName(usertemp.getUserName());
         user.setPassword(usertemp.getPassword());
         user.setAge(usertemp.getAge());
-        userService.createUser(user);
-        return "passTest";
+        if (userService.createUser(user)) {
+            return "passTest";
+        } else {
+            model.addAttribute("message", "插入新用户失败！");
+            return "error";
+        }
     }
 
     @RequestMapping(value = "/list")
@@ -98,4 +121,33 @@ public class UserController {
         mav.addObject("userList", users);
         return mav;
     }
+
+    @RequestMapping(value = "/update")
+    public ModelAndView update(User user, Model model) {
+        boolean result = userService.updateUserInfo(user);
+        if (result) {
+            /*
+             * 用redirect来实现,这样viewResolver认为是重定向操作,
+             * 不再渲染该视图,而是直接向客户端发出redirect响应
+             * 
+             * redirect../list表示返回上级目录下的list页面
+             * 实现页面跳转附加参数return new ModelAndView("redirect:list?id="+id);
+             */
+            //return new ModelAndView("redirect:../list");
+            return new ModelAndView("redirect:list");
+        } else {
+            model.addAttribute("message", "用户更新失败");
+            return new ModelAndView("error");
+        }
+
+    }
+
+    @RequestMapping(value = "/edit")
+    public String edit(HttpServletRequest request, Model model) {
+        int userId = Integer.parseInt(request.getParameter("id"));
+        User user = userService.getUserById(userId);
+        model.addAttribute("user", user);
+        return "update";
+    }
+
 }
