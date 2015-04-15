@@ -4,10 +4,10 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>Home Page</title>
 </head>
 <body>
-	<h1> 恭喜你，${userName}  已成功登陆！</h1>
-	<a href="http://localhost:8080/springDemo/UserController/list" target="_self">管理用户</a>&nbsp;
+	<h1>${user.userName} 的个人主页</h1>
+	<input type="button" value="Logout" onclick="window.location.href='logout'">&nbsp;&nbsp;
 </body>
 </html>

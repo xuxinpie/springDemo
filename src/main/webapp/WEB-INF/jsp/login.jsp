@@ -8,8 +8,8 @@
 </head>
 <body>
 	<form method="post" action="userLogin">
-		userName:<input type="text" name="userName"/><br/>
-		passWord:<input type="password" name="password"/><br/>
+		userName:<input type="text" name="userName" value="${userName}"/>${message1}<br/>
+		passWord:<input type="password" name="password"/>${message2}<br/>
 		<!-- confirm password:<input type="password" name="confirmpassword"/><br/> -->
 		<!-- Age:<input type="text" name="age"/><br/> -->
 		<!-- emphireDate:<input type="text" name="empHireDate"/><br/> -->

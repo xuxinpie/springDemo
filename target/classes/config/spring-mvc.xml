@@ -66,6 +66,11 @@
                 </property>
 			</bean>
 		</mvc:interceptor>
+		<mvc:interceptor>
+			<mvc:mapping path="/UserController/login" />
+			<!-- 登录检查Interceptor -->
+			<bean id="checkLoginInterceptor" class="com.xinux.test.interceptor.CheckLoginInterceptor" />
+		</mvc:interceptor>
 	</mvc:interceptors>
 
 	<!-- <mvc:resources mapping="/static/**" location="/WEB-INF/jsp/"/> 静态资源因为没有相应的Controller就会被default 
@@ -91,6 +96,7 @@
 		</property>
 	</bean>
 
+	<!-- 通过Url访问/WEB-INF/resources/目录下的静态资源 -->
 	<mvc:resources mapping="/resources/**" location="/WEB-INF/resources/" />
 
 	<!-- 视图解析类，对模型视图民称的解析，对模型视图添加前后缀 -->
@@ -114,5 +120,5 @@
 			</list>
 		</property>
 	</bean>
-
+	
 </beans>

@@ -4,10 +4,12 @@ import java.util.List;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.xinux.test.model.User;
@@ -42,25 +44,49 @@ public class UserController {
         return "login";
     }
 
-    @RequestMapping("/userLogin")
+    @RequestMapping(value = "/userLogin", method = RequestMethod.POST)
     //参数为User对象，要求表单中的名字与User Bean的属性名相同，即可通过Bean来接收参数
-    public String loginUser(Model model, User user) {
+    //设置HttpSession，将对象写入Session
+    public ModelAndView loginUser(Model model, User user, HttpSession httpSession) {
         //        String name = request.getParameter("userName");
         System.out.println("userName is: " + user.getUserName());
         System.out.println("password is: " + user.getPassword());
         String passwordInput = user.getPassword();
         User userResult = userService.getuserByUserName(user.getUserName());
         if (null == userResult) {
-            model.addAttribute("message", "用户不存在");
-            return "error";
+            model.addAttribute("message1", "用户不存在");
+            return new ModelAndView("login");
         } else if (!passwordInput.equals(userResult.getPassword())) {
             System.out.println(passwordInput);
-            model.addAttribute("message", "密码错误");
-            return "error";
+            model.addAttribute("message2", "密码错误");
+            model.addAttribute("userName", user.getUserName());
+            return new ModelAndView("login");
         }
-
+        httpSession.setAttribute("user", userResult);
         model.addAttribute("userName", user.getUserName());
-        return "success";
+        return new ModelAndView("loginSuccess");
+    }
+
+    @RequestMapping(value = "/logout")
+    public String logout(HttpSession httpSession) {
+        User user = (User) httpSession.getAttribute("user");
+        System.out.println(user);
+        httpSession.removeAttribute("user");
+        //删除所有session
+        //httpSession.invalidate();
+        return "logoutSuccess";
+    }
+
+    @RequestMapping(value = "/homePage")
+    public String requestHomePage(Model model, HttpSession httpSession) {
+        User user = (User) httpSession.getAttribute("user");
+        if (null == user) {
+            model.addAttribute("message", "用户尚未登录");
+            return "error";
+        } else {
+            model.addAttribute("user", user);
+            return "homePage";
+        }
     }
 
     @RequestMapping(value = "/delete")
