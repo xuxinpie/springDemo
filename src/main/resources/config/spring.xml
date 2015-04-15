@@ -16,9 +16,11 @@
     	 即解决了@Controller标识的类的bean的注入和使用。 -->
     <context:annotation-config/>
     
-    <!-- 扫描文件（自动将servicec层注入） -->
-    <context:component-scan base-package="com.xinux.test.serviceImpl"/>
-    <!-- 业务层注入 注入Service层，不利用注解实现注入-->
-    <bean id="userService" class="com.xinux.test.serviceImpl.UserServiceImpl"></bean>
+    
+    <!-- 开启Spring的Bean自动扫描机制来查找与管理Bean实例 -->
+    <context:component-scan base-package="com.xinux.test"/>
+    <!-- 业务层注入 注入Service层-->
+    <bean id="userService" class="com.xinux.test.serviceImpl.UserServiceImpl" ></bean>
+    
     
 </beans>
