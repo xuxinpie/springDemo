@@ -18,6 +18,7 @@
     
     
     <!-- 开启Spring的Bean自动扫描机制来查找与管理Bean实例 -->
+    <!-- 如果要使注解工作，则必须配置component-scan ，实际上不需要再配置annotation-config -->
     <context:component-scan base-package="com.xinux.test"/>
     <!-- 业务层注入 注入Service层-->
     <bean id="userService" class="com.xinux.test.serviceImpl.UserServiceImpl" ></bean>
