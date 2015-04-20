@@ -11,10 +11,11 @@
 	<script language="javaScript">
 		function validateLogin() {
 			var userName = document.frmRegister.userName.value;
+			var email = document.frmRegister.email.vaule;
 			var password = document.frmRegister.password.value;
 			var password2 = document.frmRegister.password2.value;
 			var age = document.frmRegister.age.value;
-			if (userName=="" || password=="" ||password2=="" || age=="") {
+			if (userName=="" || email=="" || password=="" || password2=="" || age=="") {
 				alert("任意信息不能为空，请重新填写！");
 			    return false;
 			 } else if (userName.length>20) {
@@ -66,6 +67,15 @@
 			<td align="left">
 				<input type="text" name="age" value="Your age"
 				onfocus="if(this.value=='Your age')this.value='';"><br />
+			</td>
+		</tr>
+		<tr>
+			<td>
+				邮箱：
+			</td>
+			<td align="left">
+				<input type="text" name="email" value="Your Email"
+				onfocus="if(this.value=='Your Email')this.value='';"><br />
 			</td>
 		</tr>
 		<tr>

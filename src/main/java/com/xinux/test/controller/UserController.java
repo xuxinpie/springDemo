@@ -12,8 +12,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.xinux.test.model.Email;
 import com.xinux.test.model.User;
 import com.xinux.test.model.UserRegisterInfo;
+import com.xinux.test.service.EmailService;
 import com.xinux.test.service.UserService;
 import com.xinux.test.user.exception.InvalidPasswordException;
 import com.xinux.test.user.exception.UserNotFoundException;
@@ -30,7 +32,9 @@ import com.xinux.test.user.exception.UserNotFoundException;
 public class UserController {
 
     @Resource(name = "userService")
-    private UserService userService;
+    private UserService  userService;
+    @Resource(name = "emailService")
+    private EmailService emailService;
 
     @RequestMapping("/showUser")
     public String showUser(HttpServletRequest request, Model model) {
@@ -132,7 +136,14 @@ public class UserController {
         user.setUserName(usertemp.getUserName());
         user.setPassword(usertemp.getPassword());
         user.setAge(usertemp.getAge());
+        user.setEmail(usertemp.getEmail());
         if (userService.createUser(user)) {
+            Email email = new Email();
+            email.setFrom("xuxinpie@gmail.com");
+            email.setTo(new String[] { user.getEmail() });
+            email.setSubject("注册确认邮件");
+            email.setText("Thanks for your resistration " + user.getUserName());
+            emailService.send(email);
             return "passTest";
         } else {
             model.addAttribute("message", "插入新用户失败！");

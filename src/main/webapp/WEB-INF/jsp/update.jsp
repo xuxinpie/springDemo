@@ -14,6 +14,7 @@
 		<div align="center">
 			用户名： <input type="text" name="userName" value="${user.userName}" /><br />
 			年龄:<input type="text" name="age" value="${user.age}"/><br />
+			邮箱:<input type="text" name="email" value="${user.email}"/><br />
 			密码:<input type="password" name="password" value="${user.password}"/><br />
 			<input type="hidden" name="id" value="${user.id}" />
 			<input type="submit" value="submit"/> <input type="reset" value="cancel"/>

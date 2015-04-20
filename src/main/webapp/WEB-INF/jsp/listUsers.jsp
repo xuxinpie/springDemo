@@ -34,7 +34,7 @@
 	<p>用户列表</p>
 	<c:forEach items="${userList}" var="user">
        姓名： <c:out value="${user.userName}"></c:out>
-       密码： <c:out value="${user.password}"></c:out>
+       邮箱： <c:out value="${user.email}"></c:out>
        年龄： <c:out value="${user.age}"></c:out>
        <!-- 此处将_self改成_blank会在新窗口打开 -->
        <a href="http://localhost:8080/springDemo/UserController/edit?id=${user.id}" target="_self">编辑</a>&nbsp;

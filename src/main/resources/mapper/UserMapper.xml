@@ -6,10 +6,11 @@
 		<result column="user_name" property="userName" />
 		<result column="password" property="password" />
 		<result column="age" property="age" />
+		<result column="email" property="email" />
 	</resultMap>
 
 	<sql id="Base_Column_List">
-		id, user_name, password, age
+		id, user_name, password, age, email
 	</sql>
 	<select id="findUserById" resultMap="BaseResultMap"
 		parameterType="int">
@@ -43,8 +44,8 @@
 	</insert> -->
 	<insert id="insertUser" parameterType="User" useGeneratedKeys="true" keyProperty="id">
 		insert into user_t (user_name, password,
-		age)
-		values (#{userName}, #{password}, #{age})
+		age, email)
+		values (#{userName}, #{password}, #{age}, #{email})
 	</insert>
 	<update id="updateUserInfo" parameterType="User">
 		update user_t
@@ -57,6 +58,9 @@
 			</if>
 			<if test="age != null">
 				age = #{age},
+			</if>
+			<if test="emaili != null">
+				age = #{email},
 			</if>
 		</set>
 		where id = #{id}

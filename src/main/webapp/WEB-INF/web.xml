@@ -5,7 +5,6 @@
 	id="WebApp_ID" version="2.5">
 	<display-name>Archetype Created Web Application</display-name>
 
-
 	<!-- Spring监听器 是整个 spring 框架的入口， 会自动装载 应用程序根上下文的 配置文件；因为他实现了 ServletContextListener 
 		这个接口， 项目启动时，就会执行它实现的方法。 -->
 	<listener>
@@ -24,7 +23,7 @@
 		<param-name>webAppRootKey</param-name>
 		<param-value>springmvc.root</param-value>
 	</context-param>
-
+	
 	<!-- 设置Session超时时间 单位：分钟 -->
 	<session-config>
 		<session-timeout>5</session-timeout>
