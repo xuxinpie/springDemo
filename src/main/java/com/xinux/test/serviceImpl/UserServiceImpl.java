@@ -3,17 +3,22 @@ package com.xinux.test.serviceImpl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.xinux.test.dao.UserDao;
 import com.xinux.test.model.User;
 import com.xinux.test.service.UserService;
+import com.xinux.test.user.exception.InvalidPasswordException;
+import com.xinux.test.user.exception.UserNotFoundException;
 
 @Service("userService")
 public class UserServiceImpl implements UserService {
 
     @Autowired
-    private UserDao userDao;
+    private UserDao         userDao;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Override
     public User getUserById(int id) {
@@ -35,6 +40,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public boolean createUser(User user) {
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         int effectedRows = userDao.insertUser(user);
         int key = user.getId();
         System.out.println("effect Rows: " + effectedRows);
@@ -61,4 +67,17 @@ public class UserServiceImpl implements UserService {
             return false;
         }
     }
+
+    @Override
+    public User loginUser(String userName, String password) throws UserNotFoundException,
+                                                           InvalidPasswordException {
+        User user = userDao.findUserByName(userName);
+        if (null == user) {
+            throw new UserNotFoundException("User not found, userName = " + userName);
+        } else if (!passwordEncoder.matches(password, user.getPassword())) {
+            throw new InvalidPasswordException("Invalid password");
+        }
+        return user;
+    }
+
 }

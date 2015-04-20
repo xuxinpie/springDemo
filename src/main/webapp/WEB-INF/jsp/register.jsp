@@ -49,14 +49,53 @@
 		<h1 align="center">用户注册</h1>
 		<br>
 		<div align="center">
-			用户名：<input type="text" name="userName" value="Your name"
+		<table border="0">
+		<tr>
+			<td>
+				用户名：
+			</td>
+			<td align="left">
+				<input type="text" name="userName" value="Your name"
 				onfocus="if(this.value=='Your name')this.value='';"><br />
-			年龄：<input type="text" name="age" value="Your age"
+			</td>
+		</tr>
+		<tr>
+			<td>
+				年龄：
+			</td>
+			<td align="left">
+				<input type="text" name="age" value="Your age"
 				onfocus="if(this.value=='Your age')this.value='';"><br />
-			密码：<input type="password" name="password" value="Your password"
+			</td>
+		</tr>
+		<tr>
+			<td>
+				密码：
+			</td>
+			<td>	
+				<input type="password" name="password" value="password"
 				onfocus="if(this.value=='Your password')this.value='';"><br />
-			密码确认：<input type="password" name="password2" value="Confirm password"
-				onfocus="if(this.value=='Confirm password')this.value='';"><br />	
+			</td>
+		</tr>
+		<tr>
+			<td>
+				密码确认：
+			</td>
+			<td>	
+				<input type="password" name="password2" value="password"
+				onfocus="if(this.value=='Confirm password')this.value='';"><br />
+			</td>
+		</tr>
+		<tr>
+			<td>
+				头像上传：
+			</td>
+			<td>
+				<input type="file" name="photoFile" accept="image/*" /><br />
+			</td>
+		</tr>
+		</table>
+		<br />
 			<input type="button" name="Submit" value="提交"
 				onclick="submitForm();"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			<input type="reset" name="Reset" value="重置"><br>

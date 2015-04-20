@@ -121,4 +121,11 @@
 		</property>
 	</bean>
 	
+	<!-- 控制文件上传 needed because we require fileupload(user photo) -->
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver" >
+        <!-- the maximum file size in bytes -->
+        <!-- 1 MB -->
+        <property name="maxUploadSize" value="1048576" />
+    </bean>
+	
 </beans>

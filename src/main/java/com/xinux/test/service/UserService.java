@@ -3,6 +3,8 @@ package com.xinux.test.service;
 import java.util.List;
 
 import com.xinux.test.model.User;
+import com.xinux.test.user.exception.InvalidPasswordException;
+import com.xinux.test.user.exception.UserNotFoundException;
 
 public interface UserService {
 
@@ -52,5 +54,15 @@ public interface UserService {
      * @return
      */
     public boolean updateUserInfo(User user);
+
+    /**
+     * 用户登陆验证
+     * 
+     * @param userName
+     * @param password
+     * @return
+     */
+    public User loginUser(String userName, String password) throws UserNotFoundException,
+                                                           InvalidPasswordException;
 
 }

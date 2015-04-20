@@ -15,6 +15,8 @@ import org.springframework.web.servlet.ModelAndView;
 import com.xinux.test.model.User;
 import com.xinux.test.model.UserRegisterInfo;
 import com.xinux.test.service.UserService;
+import com.xinux.test.user.exception.InvalidPasswordException;
+import com.xinux.test.user.exception.UserNotFoundException;
 
 /**
  * User 控制器
@@ -47,23 +49,25 @@ public class UserController {
     @RequestMapping(value = "/userLogin", method = RequestMethod.POST)
     //参数为User对象，要求表单中的名字与User Bean的属性名相同，即可通过Bean来接收参数
     //设置HttpSession，将对象写入Session
-    public ModelAndView loginUser(Model model, User user, HttpSession httpSession) {
+    public ModelAndView loginUser(Model model, HttpServletRequest request, HttpSession httpSession) {
         //        String name = request.getParameter("userName");
-        System.out.println("userName is: " + user.getUserName());
-        System.out.println("password is: " + user.getPassword());
-        String passwordInput = user.getPassword();
-        User userResult = userService.getuserByUserName(user.getUserName());
-        if (null == userResult) {
+        String userName = request.getParameter("userName");
+        String password = request.getParameter("password");
+        System.out.println("userName is: " + userName);
+        System.out.println("password is: " + password);
+
+        try {
+            User userResult = userService.loginUser(userName, password);
+            httpSession.setAttribute("user", userResult);
+            model.addAttribute("userName", userName);
+        } catch (UserNotFoundException e) {
             model.addAttribute("message1", "用户不存在");
             return new ModelAndView("login");
-        } else if (!passwordInput.equals(userResult.getPassword())) {
-            System.out.println(passwordInput);
+        } catch (InvalidPasswordException e) {
             model.addAttribute("message2", "密码错误");
-            model.addAttribute("userName", user.getUserName());
+            model.addAttribute("userName", userName);
             return new ModelAndView("login");
         }
-        httpSession.setAttribute("user", userResult);
-        model.addAttribute("userName", user.getUserName());
         return new ModelAndView("loginSuccess");
     }
 
