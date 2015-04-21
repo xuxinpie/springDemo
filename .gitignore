@@ -1,0 +1,8 @@
+# ºöÂÔ*.oºÍ*.a¼ş
+ *.[oa]
+
+#ingore *.class
+*.class
+
+#ignore pom.properties
+pom.properties
