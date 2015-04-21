@@ -3,6 +3,7 @@ package com.xinux.test.service;
 import javax.mail.MessagingException;
 
 import com.xinux.test.model.Email;
+import com.xinux.test.model.User;
 
 public interface EmailService {
 
@@ -20,4 +21,11 @@ public interface EmailService {
      * @throws MessagingException
      */
     public void sendMime(Email email) throws MessagingException;
+
+    /**
+     * 发送注册确认邮件
+     * 
+     * @param user
+     */
+    public void sendMime(Email email, User user) throws MessagingException;
 }

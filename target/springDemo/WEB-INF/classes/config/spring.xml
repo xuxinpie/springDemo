@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+      http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+      http://www.springframework.org/schema/context
+      http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<!-- 引入jdbc配置文件 使用placeJHolder加载应用程序配置文件 -->
+	<context:property-placeholder location="classpath:config/jdbc.properties" />
+	<!-- 引入mail配置文件 使用placeJHolder加载应用程序配置文件 -->
+	<context:property-placeholder location="classpath:config/mail.properties" />
+
+	<!-- 引入注解,开启Spring的Annotation注解处理器 是对包进行扫描，实现注释驱动Bean定义，同时将bean自动注入容器中使用。 
+		即解决了@Controller标识的类的bean的注入和使用。 -->
+	<context:annotation-config />
+
+	<context:component-scan base-package="com.xinux.test">
+		<context:exclude-filter type="annotation"
+			expression="org.springframework.context.annotation.Configuration" />
+	</context:component-scan>
+
+	<!-- For hashing and salting user passwords -->
+	<bean id="passwordEncoder"
+		class="org.springframework.security.crypto.password.StandardPasswordEncoder" />
+
+	<bean id="velocityEngine"
+		class="org.springframework.ui.velocity.VelocityEngineFactoryBean">
+		<property name="velocityProperties">
+			<value>
+				resource.loader=class
+				class.resource.loader.class=org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+			</value>
+		</property>
+	</bean>
+
+	<!-- 开启Spring的Bean自动扫描机制来查找与管理Bean实例 -->
+	<!-- 如果要使注解工作，则必须配置component-scan ，实际上不需要再配置annotation-config -->
+	<!-- <context:component-scan base-package="com.xinux.test"/> -->
+	<!-- 业务层注入 注入Service层 -->
+	<!-- <bean id="userService" class="com.xinux.test.serviceImpl.UserServiceImpl" 
+		></bean> -->
+
+	<!-- <bean id="javaMailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<property name="host" value="${mail.host}" />
+		<property name="username" value="${mail.username}" />
+		<property name="password" value="${mail.password}" />
+	</bean> -->
+	
+	<bean id="javaMailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<property name="host" value="smtp.126.com" />
+		<property name="username" value="luckyxu1126@126.com" />
+		<property name="password" value="3050017" />
+	</bean>
+
+	<bean id="emailService" class="com.xinux.test.serviceImpl.EmailServiceImpl">
+		<property name="mailSender" ref="javaMailSender" />
+		<property name="javaMailSender" ref="javaMailSender" />
+	</bean>
+
+</beans>

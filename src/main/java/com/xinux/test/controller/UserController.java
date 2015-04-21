@@ -3,9 +3,12 @@ package com.xinux.test.controller;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,10 +34,12 @@ import com.xinux.test.user.exception.UserNotFoundException;
 @RequestMapping("/UserController")
 public class UserController {
 
+    private static final Logger logger = LoggerFactory.getLogger(UserController.class);
+
     @Resource(name = "userService")
-    private UserService  userService;
+    private UserService         userService;
     @Resource(name = "emailService")
-    private EmailService emailService;
+    private EmailService        emailService;
 
     @RequestMapping("/showUser")
     public String showUser(HttpServletRequest request, Model model) {
@@ -130,7 +135,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "/add")
-    public String add(UserRegisterInfo usertemp, Model model) {
+    public String add(UserRegisterInfo usertemp, Model model) throws MessagingException {
         System.out.println(usertemp);
         User user = new User();
         user.setUserName(usertemp.getUserName());
@@ -139,11 +144,12 @@ public class UserController {
         user.setEmail(usertemp.getEmail());
         if (userService.createUser(user)) {
             Email email = new Email();
-            email.setFrom("xuxinpie@gmail.com");
+            email.setFrom("luckyxu1126@126.com");
             email.setTo(new String[] { user.getEmail() });
             email.setSubject("注册确认邮件");
             email.setText("Thanks for your resistration " + user.getUserName());
             emailService.send(email);
+            emailService.sendMime(email, user);
             return "passTest";
         } else {
             model.addAttribute("message", "插入新用户失败！");
