@@ -3,3 +3,7 @@
 
 #ingore *.class
 *.class
+
+#ignore pom.properties
+pom.properties
+
