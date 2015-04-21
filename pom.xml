@@ -18,6 +18,9 @@
         <commons-fileupload.version>1.2.2</commons-fileupload.version>
         <commons-io.version>2.0.1</commons-io.version>
         <org.springframework.security-version>3.1.0.RELEASE</org.springframework.security-version>
+        <mail.version>1.4.1</mail.version>
+        <velocity.version>1.6.3</velocity.version>
+        
     </properties>
     <dependencies>
         <!-- spring核心包 -->
@@ -190,6 +193,20 @@
 			<artifactId>commons-io</artifactId>
 			<version>${commons-io.version}</version>
 		</dependency>
+		
+		<!-- JavaMail -->
+		<dependency>
+			<groupId>javax.mail</groupId>
+			<artifactId>mail</artifactId>
+			<version>${mail.version}</version>
+		</dependency>
+
+        <!-- Velocity engine -->
+        <dependency>
+            <groupId>org.apache.velocity</groupId>
+            <artifactId>velocity</artifactId>
+            <version>${velocity.version}</version>
+        </dependency>
 		
     </dependencies>
 

@@ -21,6 +21,8 @@ public class User implements Serializable {
 
     public int                age;
 
+    public String             email;
+
     public int getId() {
         return id;
     }
@@ -51,6 +53,14 @@ public class User implements Serializable {
 
     public void setAge(int age) {
         this.age = age;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     @Override

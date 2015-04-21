@@ -10,6 +10,8 @@ public class UserRegisterInfo {
 
     public int    age;
 
+    public String email;
+
     public String getUserName() {
         return userName;
     }
@@ -40,6 +42,14 @@ public class UserRegisterInfo {
 
     public void setAge(int age) {
         this.age = age;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     @Override
