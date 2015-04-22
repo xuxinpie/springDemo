@@ -53,6 +53,13 @@
 		<property name="port" value="${mail.port}" />
 		<property name="protocol" value="${mail.protocol}" />
 		<property name="defaultEncoding" value="${mail.defaultEncoding}" />
+		<!-- 设置properties类型的属性 -->
+		<property name="javaMailProperties">
+			<props>
+				<prop key="mail.smtps.auth">true</prop>
+				<prop key="mail.smtps.starttls.enable">true</prop>
+			</props>
+		</property>
 	</bean>
 
 	<bean id="emailService" class="com.xinux.test.serviceImpl.EmailServiceImpl">

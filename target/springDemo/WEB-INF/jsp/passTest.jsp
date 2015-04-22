@@ -7,6 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-<h1>Congratulations, you finished the test! In Jsp file</h1>
+<h1>Congratulations, Registration has been successfully completed</h1>
+<a href="http://localhost:8080/springDemo/UserController/login" target="_self">登陆</a>&nbsp;
 </body>
 </html>

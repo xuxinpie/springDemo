@@ -15,6 +15,7 @@ import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.velocity.VelocityEngineUtils;
 
@@ -37,6 +38,7 @@ public class EmailServiceImpl implements EmailService {
     @Autowired
     private VelocityEngine      velocityEngine;
 
+    @Async
     @Override
     public void send(Email email) {
         SimpleMailMessage smm = new SimpleMailMessage();
@@ -47,6 +49,7 @@ public class EmailServiceImpl implements EmailService {
         mailSender.send(smm);
     }
 
+    @Async
     @Override
     public void sendMime(Email email) throws MessagingException {
         MimeMessage mm = javaMailSender.createMimeMessage();
@@ -68,6 +71,7 @@ public class EmailServiceImpl implements EmailService {
         javaMailSender.send(mm);
     }
 
+    @Async
     @Override
     public void sendMime(Email email, User user) throws MessagingException {
         MimeMessage mm = javaMailSender.createMimeMessage();
@@ -78,7 +82,6 @@ public class EmailServiceImpl implements EmailService {
         model.put("appUrl", getAppUrl());
         String emailText = VelocityEngineUtils.mergeTemplateIntoString(velocityEngine,
             "/mail/welcome.vm", model);
-        System.out.println(emailText);
         helper.setFrom(email.getFrom());
         helper.setTo(email.getTo());
         helper.setSubject(email.getSubject());
@@ -155,7 +158,7 @@ public class EmailServiceImpl implements EmailService {
     }
 
     private String getAppUrl() {
-        return "http://localhost:8080/springDemo/";
+        return "http://localhost:8080/springDemo";
     }
 
     /*@Autowired

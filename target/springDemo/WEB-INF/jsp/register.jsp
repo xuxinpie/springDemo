@@ -84,7 +84,7 @@
 			</td>
 			<td>	
 				<input type="password" name="password" value="password"
-				onfocus="if(this.value=='Your password')this.value='';"><br />
+				onfocus="if(this.value=='password')this.value='';"><br />
 			</td>
 		</tr>
 		<tr>
@@ -93,7 +93,7 @@
 			</td>
 			<td>	
 				<input type="password" name="password2" value="password"
-				onfocus="if(this.value=='Confirm password')this.value='';"><br />
+				onfocus="if(this.value=='password')this.value='';"><br />
 			</td>
 		</tr>
 		<tr>
