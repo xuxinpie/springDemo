@@ -39,13 +39,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean createUser(User user) {
+    public User createUser(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         int effectedRows = userDao.insertUser(user);
         int key = user.getId();
         System.out.println("effect Rows: " + effectedRows);
         System.out.println("Insert UserId: " + key);
-        return key > 0 ? true : false;
+        return userDao.findUserById(key);
     }
 
     @Override

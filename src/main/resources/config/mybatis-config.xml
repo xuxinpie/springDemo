@@ -6,9 +6,12 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
         <!-- 命名空间 -->
     <typeAliases>
          <typeAlias alias="User" type="com.xinux.test.model.User"/> 
+         <typeAlias alias="UserPhoto" type="com.xinux.test.model.UserPhoto"/> 
     </typeAliases>
  
     <!-- 映射map -->
-    <mappers>
-    </mappers>
+    <!-- <mappers>
+        <mapper resource="mapper/UserMapper.xml" />
+        <mapper resource="mapper/UserPhotoMapper.xml" />
+    </mappers> -->
 </configuration>

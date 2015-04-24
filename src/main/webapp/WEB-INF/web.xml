@@ -6,11 +6,10 @@
 	<display-name>Archetype Created Web Application</display-name>
 
 	<!-- Spring监听器 是整个 spring 框架的入口， 会自动装载 应用程序根上下文的 配置文件；因为他实现了 ServletContextListener 
-		这个接口， 项目启动时，就会执行它实现的方法。 -->
+		这个接口， 项目启动时，就会执行它实现的方法。该spring配置文件的位置由contextConfigLoaction指定 -->
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
-
 	<!-- 读取spring配置文件 即Spring的全局配置，这里配置数据源等一些全局Spring基本配置 dispatcherServlet可以继承自这里的配置 -->
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
@@ -18,6 +17,8 @@
             classpath:config/spring-mybatis.xml
         </param-value>
 	</context-param>
+	
+	
 	<!-- 设计路径变量值 -->
 	<context-param>
 		<param-name>webAppRootKey</param-name>

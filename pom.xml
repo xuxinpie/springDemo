@@ -92,6 +92,18 @@
 			<artifactId>spring-security-core</artifactId>
 			<version>${org.springframework.security-version}</version>
 		</dependency>
+		
+		<!-- JSR 303 with Hibernate Validator -->
+		<dependency>
+			<groupId>javax.validation</groupId>
+			<artifactId>validation-api</artifactId>
+			<version>1.0.0.GA</version>
+		</dependency>
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-validator</artifactId>
+			<version>4.1.0.Final</version>
+		</dependency>
  
         <!-- mybatis核心包 -->
         <dependency>

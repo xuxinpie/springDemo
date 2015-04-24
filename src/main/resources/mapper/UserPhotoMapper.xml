@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xinux.test.dao.UserPhotoDao">
+    <resultMap id="userPhotoResultMap" type="com.xinux.test.model.UserPhoto" >
+        <id column="id" property="id" />
+        <result column="content" property="content"/>
+        <result column="contentType" property="content_type"/>
+        <result column="user_id" property="userId"/>
+    </resultMap>
+
+    <sql id="selectStatement">
+        SELECT id,
+               user_id,
+               content,
+               content_type
+          FROM user_photo
+         WHERE active = true
+    </sql>
+
+    <!-- .................................................................. -->
+    <insert id="insert" parameterType="UserPhoto" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO user_photo
+                  ( user_id,
+                    content,
+                    content_type
+                  )
+             VALUES
+                  ( #{userId},
+                    #{content},
+                    #{contentType}
+                  )
+    </insert>
+
+    <!-- .................................................................. -->
+    <select id="findByUserId" resultMap="userPhotoResultMap" parameterType="int">
+        <include refid="selectStatement"/>
+           AND user_id = #{userId}
+    </select>
+
+    <!-- .................................................................. -->
+    <select id="findById" resultMap="userPhotoResultMap" parameterType="int">
+        <include refid="selectStatement"/>
+           AND id = #{id}
+    </select>
+
+    <!-- Update user photo record ......................................... -->
+    <update id="update" parameterType="UserPhoto">
+          UPDATE user_photo set
+         content = #{content},
+    content_type = #{contentType}
+           WHERE user_id = #{userId}
+    </update>
+
+    <!-- Remove photo ..................................................... -->
+    <update id="removeByUserId">
+          UPDATE user_photo set
+          active = false
+           WHERE user_id = #{id}
+    </update>
+
+</mapper>

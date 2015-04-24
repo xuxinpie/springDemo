@@ -1,27 +1,33 @@
 package com.xinux.test.controller;
 
+import java.io.IOException;
 import java.util.List;
 
 import javax.annotation.Resource;
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.xinux.test.dto.UserDto;
 import com.xinux.test.model.Email;
 import com.xinux.test.model.User;
-import com.xinux.test.model.UserRegisterInfo;
+import com.xinux.test.model.UserPhoto;
 import com.xinux.test.service.EmailService;
+import com.xinux.test.service.UserPhotoService;
 import com.xinux.test.service.UserService;
 import com.xinux.test.user.exception.InvalidPasswordException;
 import com.xinux.test.user.exception.UserNotFoundException;
+import com.xinux.test.utils.ServiceUtils;
 
 /**
  * User 控制器
@@ -40,6 +46,8 @@ public class UserController {
     private UserService         userService;
     @Resource(name = "emailService")
     private EmailService        emailService;
+    @Resource(name = "userPhotoService")
+    private UserPhotoService    userPhotoService;
 
     @RequestMapping("/showUser")
     public String showUser(HttpServletRequest request, Model model) {
@@ -134,27 +142,41 @@ public class UserController {
         return "register";
     }
 
-    @RequestMapping(value = "/add")
-    public String add(UserRegisterInfo usertemp, Model model) throws MessagingException {
-        System.out.println(usertemp);
-        User user = new User();
-        user.setUserName(usertemp.getUserName());
-        user.setPassword(usertemp.getPassword());
-        user.setAge(usertemp.getAge());
-        user.setEmail(usertemp.getEmail());
-        if (userService.createUser(user)) {
-            Email email = new Email();
-            email.setFrom("luckyxu1126@126.com");
-            email.setTo(new String[] { user.getEmail() });
-            email.setSubject("注册确认邮件");
-            email.setText("Thanks for your resistration " + user.getUserName());
-            emailService.send(email);
-            emailService.sendMime(email, user);
-            return "passTest";
+    @RequestMapping(value = "/add", method = RequestMethod.POST)
+    public String add(@Valid UserDto userDto, BindingResult result, Model model)
+                                                                                throws MessagingException {
+        //        Map<String, String> map = new HashMap<String, String>();
+
+        if (result.hasErrors()) {
+            model.addAttribute("message", ServiceUtils.getErrorsList(result));
+            return "error";
         } else {
+            if (null != userDto.getPhotoFile()
+                && !userDto.getPhotoFile().getOriginalFilename().isEmpty()) {
+                try {
+                    User user = userService.createUser(dtoToUser(userDto));
+                    UserPhoto userPhoto = new UserPhoto();
+                    userPhoto.setUserId(user.getId());
+                    userPhoto.setContent(userDto.getPhotoFile().getBytes());
+                    userPhoto.setContentType(userDto.getPhotoFile().getContentType());
+                    if (null != userPhotoService.createOrUpdateUserPhoto(userPhoto)) {
+                        sendEmail(dtoToUser(userDto));
+                        return "passTest";
+                    }
+                } catch (IOException e) {
+                    logger.error("Failed to save user photo.", e);
+                    model.addAttribute("message", "图片保存失败！");
+                    return "error";
+                } catch (MessagingException e) {
+                    logger.error("发送邮件失败", e);
+                    model.addAttribute("message", "发送邮件失败！");
+                    return "error";
+                }
+            }
             model.addAttribute("message", "插入新用户失败！");
             return "error";
         }
+
     }
 
     @RequestMapping(value = "/list")
@@ -195,6 +217,42 @@ public class UserController {
         User user = userService.getUserById(userId);
         model.addAttribute("user", user);
         return "update";
+    }
+
+    private User dtoToUser(UserDto userDto) {
+        User user = new User();
+        user.setUserName(userDto.getUserName());
+        user.setEmail(userDto.getEmail());
+        user.setAge(userDto.getAge());
+        user.setPassword(userDto.getPassword1());
+
+        return user;
+    }
+
+    private UserDto userToDto(User user) {
+        UserDto userDto = new UserDto();
+        userDto.setUserName(user.userName);
+        userDto.setEmail(user.getEmail());
+        userDto.setAge(user.getAge());
+        userDto.setPassword1(user.getPassword());
+        userDto.setPassword2(user.getPassword());
+        userDto.setPhoto(getAppUrl() + "/photo/");
+
+        return userDto;
+    }
+
+    public void sendEmail(User user) throws MessagingException {
+        Email email = new Email();
+        email.setFrom("luckyxu1126@126.com");
+        email.setTo(new String[] { user.getEmail() });
+        email.setSubject("注册确认邮件");
+        email.setText("Thanks for your resistration " + user.getUserName());
+        emailService.sendMime(email, user);
+
+    }
+
+    private String getAppUrl() {
+        return "http://localhost:8080/springDemo";
     }
 
 }

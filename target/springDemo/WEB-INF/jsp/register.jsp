@@ -46,7 +46,8 @@
 	</script>
 
 	<!-- Form 用来提取用户填入并提交的信息-->
-	<form method="post" id="frmRegister" name="frmRegister" action="add" >
+	<!-- 表单标签中设置enctype="multipart/form-data"用于表单里有图片上传,来确保匿名上载文件的正确编码 -->
+	<form method="post" id="frmRegister" name="frmRegister" action="add" enctype="multipart/form-data" target="_blank" >
 		<h1 align="center">用户注册</h1>
 		<br>
 		<div align="center">
@@ -84,7 +85,7 @@
 			</td>
 			<td>	
 				<input type="password" name="password" value="password"
-				onfocus="if(this.value=='password')this.value='';"><br />
+				onfocus="if(this.value=='Your password')this.value='';"><br />
 			</td>
 		</tr>
 		<tr>
@@ -93,7 +94,7 @@
 			</td>
 			<td>	
 				<input type="password" name="password2" value="password"
-				onfocus="if(this.value=='password')this.value='';"><br />
+				onfocus="if(this.value=='Confirm password')this.value='';"><br />
 			</td>
 		</tr>
 		<tr>

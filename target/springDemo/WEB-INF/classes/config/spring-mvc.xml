@@ -79,6 +79,7 @@
 	<!-- Forwards requests to the "/index" resource to the "index" view -->
 	<mvc:view-controller path="/index" view-name="index" />
 	<mvc:view-controller path="/static/timeout" view-name="timeout" />
+	<!-- <mvc:view-controller path="/photo" view-name="iconPhoto" /> -->
 
 	<!--@Controller 声明Action组件 @Service 声明Service组件 @Service("myMovieLister") 
 		@Repository 声明Dao组件 @Component 泛指组件, 当不好归类时. @RequestMapping("/menu") 请求映射 

@@ -37,7 +37,7 @@ public interface UserService {
      * @param user
      * @return
      */
-    public boolean createUser(User user);
+    public User createUser(User user);
 
     /**
      * 根据用户id删除一个用户

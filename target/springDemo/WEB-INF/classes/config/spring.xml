@@ -7,10 +7,8 @@
       http://www.springframework.org/schema/context
       http://www.springframework.org/schema/context/spring-context.xsd">
 
-	<!-- 引入jdbc配置文件 使用placeJHolder加载应用程序配置文件 -->
-	<context:property-placeholder location="classpath:config/jdbc.properties" />
-	<!-- 引入mail配置文件 使用placeJHolder加载应用程序配置文件 -->
-	<context:property-placeholder location="classpath:config/mail.properties" />
+	<!-- 引入jdbc和mail的配置文件 使用placeJHolder加载应用程序配置文件 多个配置文件需要用逗号隔开-->
+	<context:property-placeholder location="classpath:config/jdbc.properties,classpath:config/mail.properties" />
 
 	<!-- 引入注解,开启Spring的Annotation注解处理器 是对包进行扫描，实现注释驱动Bean定义，同时将bean自动注入容器中使用。 
 		即解决了@Controller标识的类的bean的注入和使用。 -->
@@ -49,9 +47,19 @@
 	</bean> -->
 	
 	<bean id="javaMailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
-		<property name="host" value="smtp.126.com" />
-		<property name="username" value="luckyxu1126@126.com" />
-		<property name="password" value="3050017" />
+		<property name="host" value="${mail.host}" />
+		<property name="username" value="${mail.username}" />
+		<property name="password" value="${mail.password}" />
+		<property name="port" value="${mail.port}" />
+		<property name="protocol" value="${mail.protocol}" />
+		<property name="defaultEncoding" value="${mail.defaultEncoding}" />
+		<!-- 设置properties类型的属性 -->
+		<property name="javaMailProperties">
+			<props>
+				<prop key="mail.smtps.auth">true</prop>
+				<prop key="mail.smtps.starttls.enable">true</prop>
+			</props>
+		</property>
 	</bean>
 
 	<bean id="emailService" class="com.xinux.test.serviceImpl.EmailServiceImpl">
