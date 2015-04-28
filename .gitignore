@@ -7,3 +7,9 @@
 #ignore pom.properties
 pom.properties
 
+.classpath
+.project
+.settings/
+target/
+.idea/
+*.iml

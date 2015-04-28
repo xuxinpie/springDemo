@@ -12,10 +12,10 @@
 		function validateLogin() {
 			var userName = document.frmRegister.userName.value;
 			var email = document.frmRegister.email.vaule;
-			var password = document.frmRegister.password.value;
+			var password1 = document.frmRegister.password1.value;
 			var password2 = document.frmRegister.password2.value;
 			var age = document.frmRegister.age.value;
-			if (userName=="" || email=="" || password=="" || password2=="" || age=="") {
+			if (userName=="" || email=="" || password1=="" || password2=="" || age=="") {
 				alert("任意信息不能为空，请重新填写！");
 			    return false;
 			 } else if (userName.length>20) {
@@ -27,10 +27,10 @@
 			 } else if (parseInt(age) <= 0 || parseInt(age) > 150) {
 				alert("用户年龄填写有误，请重新输入！");
 				return false;
-			 } else if(password.length<6) {
+			 } else if(password1.length<6) {
 			    alert("密码不能小于6个字符，请重新输入！");
 			 	return false;
-			 } else if (password!=password2) {
+			 } else if (password1!=password2) {
 			    alert("2次密码输入不一致！");
 			 	return false;
 			 } else {
@@ -47,7 +47,7 @@
 
 	<!-- Form 用来提取用户填入并提交的信息-->
 	<!-- 表单标签中设置enctype="multipart/form-data"用于表单里有图片上传,来确保匿名上载文件的正确编码 -->
-	<form method="post" id="frmRegister" name="frmRegister" action="add" enctype="multipart/form-data" target="_blank" >
+	<form method="post" id="frmRegister" name="frmRegister" action="add" enctype="multipart/form-data" target="_self" >
 		<h1 align="center">用户注册</h1>
 		<br>
 		<div align="center">
@@ -84,8 +84,8 @@
 				密码：
 			</td>
 			<td>	
-				<input type="password" name="password" value="password"
-				onfocus="if(this.value=='Your password')this.value='';"><br />
+				<input type="password" name="password1" value="password"
+				onfocus="if(this.value=='password')this.value='';"><br />
 			</td>
 		</tr>
 		<tr>
@@ -94,7 +94,7 @@
 			</td>
 			<td>	
 				<input type="password" name="password2" value="password"
-				onfocus="if(this.value=='Confirm password')this.value='';"><br />
+				onfocus="if(this.value=='password')this.value='';"><br />
 			</td>
 		</tr>
 		<tr>
