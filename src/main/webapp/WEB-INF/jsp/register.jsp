@@ -57,7 +57,7 @@
 				用户名：
 			</td>
 			<td align="left">
-				<input type="text" name="userName" value="Your name"
+				<input type="text" name="userName" placeholder="You Name"
 				onfocus="if(this.value=='Your name')this.value='';"><br />
 			</td>
 		</tr>
@@ -66,7 +66,7 @@
 				年龄：
 			</td>
 			<td align="left">
-				<input type="text" name="age" value="Your age"
+				<input type="text" name="age" placeholder="Your age"
 				onfocus="if(this.value=='Your age')this.value='';"><br />
 			</td>
 		</tr>
@@ -75,7 +75,7 @@
 				邮箱：
 			</td>
 			<td align="left">
-				<input type="text" name="email" value="Your Email"
+				<input type="text" name="email" placeholder="Your Email"
 				onfocus="if(this.value=='Your Email')this.value='';"><br />
 			</td>
 		</tr>
@@ -84,7 +84,7 @@
 				密码：
 			</td>
 			<td>	
-				<input type="password" name="password1" value="password"
+				<input type="password" name="password1"
 				onfocus="if(this.value=='password')this.value='';"><br />
 			</td>
 		</tr>
@@ -93,7 +93,7 @@
 				密码确认：
 			</td>
 			<td>	
-				<input type="password" name="password2" value="password"
+				<input type="password" name="password2"
 				onfocus="if(this.value=='password')this.value='';"><br />
 			</td>
 		</tr>

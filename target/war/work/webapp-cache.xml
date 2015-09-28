@@ -52,6 +52,7 @@
           <string>WEB-INF/classes/com/xinux/test/user/exception/UserException.class</string>
           <string>WEB-INF/classes/com/xinux/test/user/exception/UserNotFoundException.class</string>
           <string>WEB-INF/classes/com/xinux/test/user/exception/UserPhotoNotFoundException.class</string>
+          <string>WEB-INF/classes/com/xinux/test/utils/EmailUtils.class</string>
           <string>WEB-INF/classes/com/xinux/test/utils/ServiceUtils.class</string>
           <string>WEB-INF/classes/config/jdbc.properties</string>
           <string>WEB-INF/classes/config/log4j.properties</string>
@@ -92,8 +93,9 @@
           <string>WEB-INF/lib/jackson-mapper-asl-1.9.13.jar</string>
           <string>WEB-INF/lib/jackson-core-asl-1.9.13.jar</string>
           <string>WEB-INF/lib/jstl-1.2.jar</string>
-          <string>WEB-INF/lib/log4j-1.2.9.jar</string>
+          <string>WEB-INF/lib/jcl-over-slf4j-1.6.6.jar</string>
           <string>WEB-INF/lib/slf4j-log4j12-1.6.6.jar</string>
+          <string>WEB-INF/lib/log4j-1.2.16.jar</string>
           <string>WEB-INF/lib/commons-fileupload-1.2.2.jar</string>
           <string>WEB-INF/lib/commons-io-2.0.1.jar</string>
           <string>WEB-INF/lib/mail-1.4.1.jar</string>
@@ -348,18 +350,6 @@
     </org.apache.maven.plugin.war.util.DependencyInfo>
     <org.apache.maven.plugin.war.util.DependencyInfo>
       <dependency>
-        <groupId>log4j</groupId>
-        <artifactId>log4j</artifactId>
-        <version>1.2.9</version>
-        <type>jar</type>
-        <scope>compile</scope>
-        <exclusions/>
-        <optional>false</optional>
-      </dependency>
-      <targetFileName>log4j-1.2.9.jar</targetFileName>
-    </org.apache.maven.plugin.war.util.DependencyInfo>
-    <org.apache.maven.plugin.war.util.DependencyInfo>
-      <dependency>
         <groupId>org.slf4j</groupId>
         <artifactId>slf4j-api</artifactId>
         <version>1.6.6</version>
@@ -373,14 +363,38 @@
     <org.apache.maven.plugin.war.util.DependencyInfo>
       <dependency>
         <groupId>org.slf4j</groupId>
+        <artifactId>jcl-over-slf4j</artifactId>
+        <version>1.6.6</version>
+        <type>jar</type>
+        <scope>runtime</scope>
+        <exclusions/>
+        <optional>false</optional>
+      </dependency>
+      <targetFileName>jcl-over-slf4j-1.6.6.jar</targetFileName>
+    </org.apache.maven.plugin.war.util.DependencyInfo>
+    <org.apache.maven.plugin.war.util.DependencyInfo>
+      <dependency>
+        <groupId>org.slf4j</groupId>
         <artifactId>slf4j-log4j12</artifactId>
         <version>1.6.6</version>
         <type>jar</type>
-        <scope>compile</scope>
+        <scope>runtime</scope>
         <exclusions/>
         <optional>false</optional>
       </dependency>
       <targetFileName>slf4j-log4j12-1.6.6.jar</targetFileName>
+    </org.apache.maven.plugin.war.util.DependencyInfo>
+    <org.apache.maven.plugin.war.util.DependencyInfo>
+      <dependency>
+        <groupId>log4j</groupId>
+        <artifactId>log4j</artifactId>
+        <version>1.2.16</version>
+        <type>jar</type>
+        <scope>runtime</scope>
+        <exclusions/>
+        <optional>false</optional>
+      </dependency>
+      <targetFileName>log4j-1.2.16.jar</targetFileName>
     </org.apache.maven.plugin.war.util.DependencyInfo>
     <org.apache.maven.plugin.war.util.DependencyInfo>
       <dependency>
